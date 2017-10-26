@@ -49,6 +49,9 @@ export default {
 
   .home {
     margin-top: 50px;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
   }
 
   .fn-clear {
@@ -56,7 +59,7 @@ export default {
   }
 
   .trips li {
-    width: 285px;
+    width: 30%;
     float: left;
     border-radius: 4px;
     overflow: hidden;
