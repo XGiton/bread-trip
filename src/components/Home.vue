@@ -1,11 +1,5 @@
 <template>
-  <div class="home">
-    <ul class="trips fn-clear">
-      <li v-for="trip in trips">
-        <TripCard v-bind:trip="trip"></TripCard>
-      </li>
-    </ul>
-  </div>
+  <div></div>
 </template>
 
 <script>
@@ -38,21 +32,32 @@ export default {
   ul {
     list-style-type: none;
     padding: 0;
+    margin: 0 auto;
   }
 
   .home {
     margin-top: 50px;
     width: 100%;
     margin: 0 auto;
-    position: relative;
+    height: 100%;
+  }
+
+  .trips-wrap {
+    background-color: #0f0f0f;
+  }
+
+  ul {
+    /*margin: 0 auto;*/
+    background-color: #f0f0f0;
   }
 
   .trips li {
-    width: 30%;
+    width: auto;
     float: left;
     border-radius: 4px;
     overflow: hidden;
     background-color: #fff;
     margin: 0 0 20px 20px;
+    position: relative;
   }
 </style>

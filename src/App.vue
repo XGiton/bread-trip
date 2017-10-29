@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <!-- <img src="./assets/logo.png"> -->
+    <SideBar></SideBar>
     <div class="content">
       <router-view/>
     </div>
@@ -8,8 +9,13 @@
 </template>
 
 <script>
+import SideBar from './components/SideBar'
+
 export default {
-  name: 'app'
+  name: 'app',
+  components: {
+    SideBar
+  }
 }
 </script>
 
@@ -23,10 +29,8 @@ export default {
   margin-top: 60px;
 }
 
-.content {
-  padding-top: 20px;
-  width: 80%;
-  margin: 0 auto;
+.side-bar {
+  float: left;
   position: relative;
 }
 </style>
