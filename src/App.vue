@@ -16,8 +16,11 @@
         <div class="headerRight">
           <Dropdown class="userInfo" width="200px">
             <div>
-              <span>下拉菜单</span>
-              <Icon type="arrow-down-b"></Icon>
+              <a href="javascript:void(0)">
+                  肖志栋
+                  <img class="avatar" src="https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=3641042797,3954402334&fm=58&bpow=1000&bpoh=750&u_exp_0=3454063693,3637635201&fm_exp_0=86"/>
+                  <Icon type="arrow-down-b"></Icon>
+              </a>
             </div>
             <DropdownMenu slot="list">
                 <DropdownItem>退出账户</DropdownItem>
@@ -51,7 +54,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  /*margin-top: 60px;*/
 }
 
 .sider {
@@ -68,18 +70,19 @@ export default {
   height: 64px;
   line-height: 64px;
   width: 100%;
-  display: flex;
+  /*display: flex;*/
 }
 
 .breadcrumb {
   text-align: center;
   font-size: 14px;
   white-space: nowrap;
-  margin-left: 20px
+  margin-left: 20px;
+  float: left;
 }
 
 .headerRight {
-  margin-right: 20px;
+  margin-right: 50px;
   font-size: 12px;
   float: right;
   white-space: nowrap;
@@ -88,5 +91,14 @@ export default {
 }
 
 .userInfo {
+}
+
+.userInfo a {
+  color: inherit;
+}
+.userInfo a .avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 30px;
 }
 </style>
