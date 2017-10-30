@@ -1,9 +1,34 @@
 <template>
   <div id="app">
     <!-- <img src="./assets/logo.png"> -->
-    <SideBar></SideBar>
-    <div class="content">
-      <router-view/>
+    <div class="layout">
+      <div class="sider">
+        <SideBar></SideBar>
+      </div>
+      <div class="header">
+        <div class="breadcrumb">
+          <Breadcrumb>
+            <BreadcrumbItem href="/">Home</BreadcrumbItem>
+            <BreadcrumbItem href="/">Components</BreadcrumbItem>
+            <BreadcrumbItem>Breadcrumb</BreadcrumbItem>
+          </Breadcrumb>
+        </div>
+        <div class="headerRight">
+          <Dropdown class="userInfo" width="200px">
+            <div>
+              <span>下拉菜单</span>
+              <Icon type="arrow-down-b"></Icon>
+            </div>
+            <DropdownMenu slot="list">
+                <DropdownItem>退出账户</DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+          </Menu>
+        </div>
+      </div>
+      <div class="content">
+        <router-view/>
+      </div>
     </div>
   </div>
 </template>
@@ -26,11 +51,42 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  /*margin-top: 60px;*/
 }
 
-.side-bar {
-  float: left;
-  position: relative;
+.sider {
+  height: 100%;
+  width: 200px;
+  overflow: hidden;
+}
+
+.layout {
+  display: flex;
+}
+
+.header {
+  height: 64px;
+  line-height: 64px;
+  width: 100%;
+  display: flex;
+}
+
+.breadcrumb {
+  text-align: center;
+  font-size: 14px;
+  white-space: nowrap;
+  margin-left: 20px
+}
+
+.headerRight {
+  margin-right: 20px;
+  font-size: 12px;
+  float: right;
+  white-space: nowrap;
+  padding-left: 0px;
+  justify-content: flex-end;
+}
+
+.userInfo {
 }
 </style>

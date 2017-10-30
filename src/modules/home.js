@@ -62,7 +62,7 @@ function getHomeData () {
       }
     },
     {
-      cover_url: 'http://photos.breadtrip.com/covers_2017_10_26_256c3c6063d587c9856e8fcf797b9e4f.jpg?imageView/2/w/960/',
+      cover_url: 'http://open.weixin.qq.com/qr/code/?username=wow36kr',
       title: '日本: 宇奈月温泉，立山黑部',
       time: '2017.10.03',
       days: 6,
