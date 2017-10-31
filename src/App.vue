@@ -17,7 +17,7 @@
           <Dropdown class="userInfo" width="200px">
             <div>
               <a href="javascript:void(0)">
-                  肖志栋
+                  <span class="username">肖志栋</span>
                   <img class="avatar" src="https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=3641042797,3954402334&fm=58&bpow=1000&bpoh=750&u_exp_0=3454063693,3637635201&fm_exp_0=86"/>
                   <Icon type="arrow-down-b"></Icon>
               </a>
@@ -95,10 +95,13 @@ export default {
 
 .userInfo a {
   color: inherit;
+  font-size: 13px;
 }
 .userInfo a .avatar {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   border-radius: 30px;
+  vertical-align: middle;
+  margin-left: 5px;
 }
 </style>
