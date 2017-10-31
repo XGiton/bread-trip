@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!-- <img src="./assets/logo.png"> -->
-    <div class="layout">
+    <div v-if="isLayoutPath" class="layout">
       <div class="sider">
         <SideBar></SideBar>
       </div>
@@ -33,6 +33,9 @@
         <router-view/>
       </div>
     </div>
+    <div v-else>
+      <router-view/>
+    </div>
   </div>
 </template>
 
@@ -41,8 +44,39 @@ import SideBar from './components/SideBar'
 
 export default {
   name: 'app',
+  data: function () {
+    return {
+      isLayoutPath: true
+    }
+  },
   components: {
     SideBar
+  },
+
+  methods: {
+    checkLayoutPath: function (path) {
+      const noLayoutPaths = [
+        '/sign-in'
+      ]
+      if (RegExp(noLayoutPaths.join('|')).test(path)) {
+        this.isLayoutPath = false
+      } else {
+        this.isLayoutPath = true
+      }
+    }
+  },
+
+  created: function () {
+    console.log(this.$route)
+    const curPath = this.$route.path
+    this.checkLayoutPath(curPath)
+  },
+
+  watch: {
+    $route: function () {
+      const curPath = this.$route.path
+      this.checkLayoutPath(curPath)
+    }
   }
 }
 </script>
