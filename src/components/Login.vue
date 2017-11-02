@@ -24,7 +24,6 @@
 </template>
 
 <script>
-import utils from '../utils'
 import md5 from 'md5'
 
 export default {
@@ -95,7 +94,7 @@ export default {
               this.loginRule.passwordError = '密码错误'
             }
           } else {
-            utils.toast('登录成功', 'success')
+            this.$router.push('/')
           }
         })
       })
