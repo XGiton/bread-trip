@@ -46,7 +46,8 @@ export default {
   name: 'app',
   data: function () {
     return {
-      isLayoutPath: true
+      isLayoutPath: true,
+      profile: {}
     }
   },
   components: {
@@ -54,6 +55,21 @@ export default {
   },
 
   methods: {
+    setProfile: function (profile) {
+      this.profile = profile
+    },
+
+    getProfile: function (profile) {
+      return this.profile
+    },
+
+    loggedIn: function () {
+      if (sessionStorage.getItem('sessionId')) {
+        return true
+      }
+      return false
+    },
+
     checkLayoutPath: function (path) {
       const noLayoutPaths = [
         '/sign-in'
