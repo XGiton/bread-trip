@@ -11,6 +11,21 @@ const utils = {
       utils.padStr(date.getHours())}:${
       utils.padStr(date.getMinutes())}:${
       utils.padStr(date.getSeconds())}`
+  },
+
+  isString: function (obj) {
+    return typeof obj === 'string'
+  },
+
+  isArray: function (obj) {
+    return ({}).toString.apply(obj) === '[object Array]'
+  },
+
+  isEmptyDict: function (obj) {
+    for (let k in obj) {
+      return false
+    }
+    return true
   }
 }
 

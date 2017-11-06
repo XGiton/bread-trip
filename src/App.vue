@@ -5,32 +5,34 @@
       <div class="sider">
         <SideBar></SideBar>
       </div>
-      <div class="header">
-        <div class="breadcrumb">
-          <Breadcrumb>
-            <BreadcrumbItem href="/">Home</BreadcrumbItem>
-            <BreadcrumbItem href="/">Components</BreadcrumbItem>
-            <BreadcrumbItem>Breadcrumb</BreadcrumbItem>
-          </Breadcrumb>
+      <div class="rLayout">
+        <div class="header">
+          <div class="breadcrumb">
+            <Breadcrumb>
+              <BreadcrumbItem href="/">Home</BreadcrumbItem>
+              <BreadcrumbItem href="/">Components</BreadcrumbItem>
+              <BreadcrumbItem>Breadcrumb</BreadcrumbItem>
+            </Breadcrumb>
+          </div>
+          <div class="headerRight">
+            <Dropdown class="userInfo" width="200px">
+              <div>
+                <a href="javascript:void(0)">
+                    <span class="username">肖志栋</span>
+                    <img class="avatar" src="https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=3641042797,3954402334&fm=58&bpow=1000&bpoh=750&u_exp_0=3454063693,3637635201&fm_exp_0=86"/>
+                    <Icon type="arrow-down-b"></Icon>
+                </a>
+              </div>
+              <DropdownMenu slot="list">
+                  <DropdownItem>退出账户</DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+            </Menu>
+          </div>
         </div>
-        <div class="headerRight">
-          <Dropdown class="userInfo" width="200px">
-            <div>
-              <a href="javascript:void(0)">
-                  <span class="username">肖志栋</span>
-                  <img class="avatar" src="https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=3641042797,3954402334&fm=58&bpow=1000&bpoh=750&u_exp_0=3454063693,3637635201&fm_exp_0=86"/>
-                  <Icon type="arrow-down-b"></Icon>
-              </a>
-            </div>
-            <DropdownMenu slot="list">
-                <DropdownItem>退出账户</DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
-          </Menu>
+        <div class="content">
+          <router-view/>
         </div>
-      </div>
-      <div class="content">
-        <router-view/>
       </div>
     </div>
     <div v-else>
@@ -64,7 +66,7 @@ export default {
     },
 
     loggedIn: function () {
-      if (sessionStorage.getItem('sessionId')) {
+      if (this.profile) {
         return true
       }
       return false
@@ -83,7 +85,6 @@ export default {
   },
 
   created: function () {
-    console.log(this.$route)
     const curPath = this.$route.path
     this.checkLayoutPath(curPath)
   },
@@ -116,11 +117,15 @@ export default {
   display: flex;
 }
 
+.rLayout {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+
 .header {
   height: 64px;
   line-height: 64px;
-  width: 100%;
-  /*display: flex;*/
 }
 
 .breadcrumb {

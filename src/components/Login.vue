@@ -82,7 +82,8 @@ export default {
       formData.append('remember', remember ? 1 : 0)
       fetch('/api/user/login', {
         method: 'POST',
-        body: formData
+        body: formData,
+        credentials: 'same-origin'
       }).then((res) => {
         res.json().then((json) => {
           if (res.status >= 400) {

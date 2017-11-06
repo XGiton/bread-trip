@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
 import SignIn from '@/components/Login'
-import app from '../App'
+import { checkAuth } from '../sagas'
 
 Vue.use(Router)
 
@@ -18,6 +18,10 @@ const router = new Router({
       path: '/sign-in',
       name: 'signIn',
       component: SignIn
+    },
+    {
+      path: '*',
+      redirect: '/home'
     }
   ]
 })
@@ -27,7 +31,9 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
-    if (!app.methods.loggedIn()) {
+    console.log('checkAuth:')
+    console.log(checkAuth())
+    if (!checkAuth()) {
       next({
         path: '/sign-in',
         query: { redirect: to.fullPath }
