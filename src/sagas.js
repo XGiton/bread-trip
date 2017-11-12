@@ -1,6 +1,7 @@
 
 import app from './App'
 import utils from './utils'
+import co from 'co'
 
 export function* getProfile () {
   let profile = app.data.profile
@@ -8,29 +9,40 @@ export function* getProfile () {
     console.log('profile is not empty')
     return profile.toJS()
   }
-  fetch('/api/user', {
-    method: 'GET'
+
+  yield fetch('/api/user', {
+    method: 'GET',
+    credentials: 'same-origin'
   }).then((res) => {
     res.json().then((json) => {
       if (res.status >= 400) {
         console.log('get profile failed')
       } else {
+        console.log('get profile success')
         app.methods.setProfile(json)
+        profile = json
+        console.log(json)
       }
     })
   })
-  profile = app.data.profile
-  return profile.toJS()
+  return profile
 }
 
-export function* checkAuth () {
-  console.log('check...')
-  const profile = yield * getProfile()
-  console.log('profile:')
-  console.log(profile)
-  if (profile) {
-    return true
-  } else {
-    return false
-  }
+export function checkAuth () {
+  let result = false
+  console.log('0')
+  co(getProfile()).then(
+    (rsp) => {
+      console.log('1')
+      if (!utils.isEmptyDict(rsp)) {
+        console.log('true')
+        result = true
+      } else {
+        console.log('false')
+        console.log(rsp)
+        result = false
+      }
+    }
+  )
+  return result
 }
