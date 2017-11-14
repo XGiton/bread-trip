@@ -15,16 +15,17 @@
             </Breadcrumb>
           </div>
           <div class="headerRight">
-            <Dropdown class="userInfo" width="200px">
+            <Dropdown class="userInfo" width="200px" @on-click="dropDownSelected">
               <div>
                 <a href="javascript:void(0)">
-                    <span class="username">肖志栋</span>
-                    <img class="avatar" src="https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=3641042797,3954402334&fm=58&bpow=1000&bpoh=750&u_exp_0=3454063693,3637635201&fm_exp_0=86"/>
-                    <Icon type="arrow-down-b"></Icon>
+                  <span class="username">肖志栋</span>
+                  <img class="avatar" src="https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=3641042797,3954402334&fm=58&bpow=1000&bpoh=750&u_exp_0=3454063693,3637635201&fm_exp_0=86"/>
+                  <Icon type="arrow-down-b"></Icon>
                 </a>
               </div>
               <DropdownMenu slot="list">
-                  <DropdownItem>退出账户</DropdownItem>
+                <DropdownItem name="profile">账户信息</DropdownItem>
+                <DropdownItem name="signOut">退出账户</DropdownItem>
               </DropdownMenu>
             </Dropdown>
             </Menu>
@@ -70,6 +71,22 @@ export default {
         return true
       }
       return false
+    },
+
+    dropDownSelected: async function (name) {
+      if (name === 'signOut') {
+        const res = await fetch('/api/user/logout', {
+          method: 'POST',
+          credentials: 'same-origin'
+        })
+        await res.json()
+        if (res.status >= 400) {
+        } else {
+          this.$router.push('/sign-in')
+        }
+      } else if (name === 'profile') {
+        console.log('redirect to profile page')
+      }
     },
 
     checkLayoutPath: function (path) {
@@ -126,6 +143,7 @@ export default {
 .header {
   height: 64px;
   line-height: 64px;
+  border-bottom: 1px solid #e2e2e2;
 }
 
 .breadcrumb {

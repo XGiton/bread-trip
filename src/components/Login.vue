@@ -6,12 +6,18 @@
         <FormItem
           prop="account" class="formItem" :error="loginRule.accountError"
           :show-message="loginRule.accountShowMsg">
-          <Input v-model="loginForm.account" size="large" @on-focus="accountOnFocus" placeholder="请输入账号"></Input>
+          <Input ref="accountInput"
+            v-model="loginForm.account" size="large" @on-focus="accountOnFocus"
+            @on-enter="focusPwd" placeholder="请输入账号" :autofocus="true">
+          </Input>
         </FormItem>
         <FormItem
           prop="password" class="formItem" :error="loginRule.passwordError"
           :show-message="loginRule.passwordShowMsg">
-          <Input v-model="loginForm.password" size="large" @on-focus="passwordOnFocus" type="password" placeholder="请输入密码"></Input>
+          <Input ref="pwdInput"
+            v-model="loginForm.password" size="large" @on-focus="passwordOnFocus"
+            type="password" placeholder="请输入密码" @on-enter="login">
+          </Input>
         </FormItem>
         <FormItem class="formItem">
           <Checkbox class="rememberCheckbox" v-model="loginForm.remember">下次自动登录</Checkbox>
@@ -58,6 +64,10 @@ export default {
     passwordOnFocus: function () {
       this.loginRule.passwordError = ''
       this.loginRule.passwordShowMsg = false
+    },
+
+    focusPwd: function () {
+      this.$refs['pwdInput'].focus()
     },
 
     login: function () {
