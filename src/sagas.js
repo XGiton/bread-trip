@@ -1,48 +1,33 @@
 
 import app from './App'
 import utils from './utils'
-import co from 'co'
 
-export function* getProfile () {
+export async function getProfile () {
   let profile = app.data.profile
   if (!utils.isEmptyDict(profile)) {
-    console.log('profile is not empty')
     return profile.toJS()
   }
 
-  yield fetch('/api/user', {
+  const res = await fetch('/api/user', {
     method: 'GET',
     credentials: 'same-origin'
-  }).then((res) => {
-    res.json().then((json) => {
-      if (res.status >= 400) {
-        console.log('get profile failed')
-      } else {
-        console.log('get profile success')
-        app.methods.setProfile(json)
-        profile = json
-        console.log(json)
-      }
-    })
   })
+  const data = await res.json()
+  if (res.status >= 400) {
+  } else {
+    app.methods.setProfile(data)
+    profile = data
+  }
   return profile
 }
 
-export function checkAuth () {
+export async function checkAuth () {
   let result = false
-  console.log('0')
-  co(getProfile()).then(
-    (rsp) => {
-      console.log('1')
-      if (!utils.isEmptyDict(rsp)) {
-        console.log('true')
-        result = true
-      } else {
-        console.log('false')
-        console.log(rsp)
-        result = false
-      }
-    }
-  )
+  const profile = await getProfile()
+  if (!utils.isEmptyDict(profile)) {
+    result = true
+  } else {
+    result = false
+  }
   return result
 }

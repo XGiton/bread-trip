@@ -27,13 +27,12 @@ const router = new Router({
 })
 
 // 注册守卫
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
-    console.log('checkAuth:')
-    console.log(checkAuth())
-    if (!checkAuth()) {
+    const result = await checkAuth()
+    if (!result) {
       next({
         path: '/sign-in',
         query: { redirect: to.fullPath }
