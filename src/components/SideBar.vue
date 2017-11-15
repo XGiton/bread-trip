@@ -2,7 +2,7 @@
   <div id="side-bar">
     <div class="logContainer">
       <div class="logo">
-        <a href="#">Merry</a>
+        <a href="#">工具箱</a>
       </div>
     </div>
     <div class="sideBarContainer">

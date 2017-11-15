@@ -12,7 +12,7 @@
         <div>
           <a href="javascript:void(0)">
             <span class="username">{{ user.username }}</span>
-            <img class="avatar" :src="user.avatar"/>
+            <img class="avatar" :src="user.avatar_url || defaultAvatar"/>
             <Icon type="arrow-down-b"></Icon>
           </a>
         </div>
@@ -26,13 +26,18 @@
 </template>
 
 <script>
+import defaultAvatar from './../assets/default-avatar.png'
 
 export default {
   name: 'header',
   props: [
     'user'
   ],
-
+  data: function () {
+    return {
+      defaultAvatar
+    }
+  },
   methods: {
     dropDownSelected: async function (name) {
       if (name === 'signOut') {
