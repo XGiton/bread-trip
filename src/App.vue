@@ -2,12 +2,12 @@
   <div id="app">
     <!-- <img src="./assets/logo.png"> -->
     <div v-if="isLayoutPath" class="layout">
-      <div class="sider">
-        <SideBar></SideBar>
+      <div class="layout-left">
+        <SideBar class="sidebar"></SideBar>
       </div>
-      <div class="rLayout">
-        <HeaderComponents v-bind:user="profile" class="header"></HeaderComponents>
-        <div class="content">
+      <div class="layout-right">
+        <HeaderComponents v-bind:user="profile" class="layout-header"></HeaderComponents>
+        <div class="layout-content">
           <router-view/>
         </div>
       </div>
@@ -97,25 +97,34 @@ export default {
   color: #2c3e50;
 }
 
-.sider {
+.layout-left {
   height: 100%;
-  width: 200px;
+  min-width: 210px;
+  max-width: 220px;
   overflow: hidden;
+}
+
+.sidebar {
 }
 
 .layout {
   display: flex;
+  min-height: 875px;
 }
 
-.rLayout {
+.layout-right {
   display: flex;
   width: 100%;
   flex-direction: column;
 }
 
-.header {
+.layout-header {
   height: 64px;
   line-height: 64px;
   border-bottom: 1px solid #e2e2e2;
+}
+
+.layout-content {
+  /*min-height: 810px;*/
 }
 </style>

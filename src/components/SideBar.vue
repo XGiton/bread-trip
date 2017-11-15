@@ -65,8 +65,7 @@ export default {
 }
 
 .sideBarContainer {
-  padding-bottom: 55px;
-  height: calc(100% - 64px);
+  /*padding-bottom: calc(100% - 64px);*/
 }
 
 .sidebarText {
