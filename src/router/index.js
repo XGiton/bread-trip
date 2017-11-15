@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
 import SignIn from '@/components/Login'
-import { checkAuth } from '../sagas'
+import { checkAuth } from '../api'
 
 Vue.use(Router)
 

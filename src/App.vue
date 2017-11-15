@@ -21,36 +21,31 @@
 <script>
 import SideBar from './components/SideBar'
 import HeaderComponents from './components/Header'
+import { mapGetters, mapActions } from 'vuex'
+import store from '@/store'
 
 export default {
   name: 'app',
   data: function () {
     return {
-      isLayoutPath: true,
-      profile: {}
+      isLayoutPath: true
     }
   },
+  store,
   components: {
     SideBar,
     HeaderComponents
   },
 
+  computed: mapGetters({
+    profile: 'profile'
+  }),
+
+  storeMethods: mapActions([
+    'addToCart'
+  ]),
+
   methods: {
-    setProfile: function (profile) {
-      this.profile = profile
-    },
-
-    getProfile: function (profile) {
-      return this.profile
-    },
-
-    loggedIn: function () {
-      if (this.profile) {
-        return true
-      }
-      return false
-    },
-
     dropDownSelected: async function (name) {
       if (name === 'signOut') {
         const res = await fetch('/api/user/logout', {

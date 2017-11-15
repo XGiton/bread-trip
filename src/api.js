@@ -1,9 +1,9 @@
 
-import app from './App'
 import utils from './utils'
+import store from '@/store'
 
 export async function getProfile () {
-  let profile = app.data.profile
+  let profile = store.state.profile
   if (!utils.isEmptyDict(profile)) {
     return profile.toJS()
   }
@@ -15,7 +15,7 @@ export async function getProfile () {
   const data = await res.json()
   if (res.status >= 400) {
   } else {
-    app.methods.setProfile(data)
+    store.commit('setProfile', data)
     profile = data
   }
   return profile
