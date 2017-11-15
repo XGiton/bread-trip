@@ -6,31 +6,7 @@
         <SideBar></SideBar>
       </div>
       <div class="rLayout">
-        <div class="header">
-          <div class="breadcrumb">
-            <Breadcrumb>
-              <BreadcrumbItem href="/">Home</BreadcrumbItem>
-              <BreadcrumbItem href="/">Components</BreadcrumbItem>
-              <BreadcrumbItem>Breadcrumb</BreadcrumbItem>
-            </Breadcrumb>
-          </div>
-          <div class="headerRight">
-            <Dropdown class="userInfo" width="200px" @on-click="dropDownSelected">
-              <div>
-                <a href="javascript:void(0)">
-                  <span class="username">肖志栋</span>
-                  <img class="avatar" src="https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=3641042797,3954402334&fm=58&bpow=1000&bpoh=750&u_exp_0=3454063693,3637635201&fm_exp_0=86"/>
-                  <Icon type="arrow-down-b"></Icon>
-                </a>
-              </div>
-              <DropdownMenu slot="list">
-                <DropdownItem name="profile">账户信息</DropdownItem>
-                <DropdownItem name="signOut">退出账户</DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
-            </Menu>
-          </div>
-        </div>
+        <HeaderComponents v-bind:user="profile" class="header"></HeaderComponents>
         <div class="content">
           <router-view/>
         </div>
@@ -44,6 +20,7 @@
 
 <script>
 import SideBar from './components/SideBar'
+import HeaderComponents from './components/Header'
 
 export default {
   name: 'app',
@@ -54,7 +31,8 @@ export default {
     }
   },
   components: {
-    SideBar
+    SideBar,
+    HeaderComponents
   },
 
   methods: {
@@ -144,37 +122,5 @@ export default {
   height: 64px;
   line-height: 64px;
   border-bottom: 1px solid #e2e2e2;
-}
-
-.breadcrumb {
-  text-align: center;
-  font-size: 14px;
-  white-space: nowrap;
-  margin-left: 20px;
-  float: left;
-}
-
-.headerRight {
-  margin-right: 50px;
-  font-size: 12px;
-  float: right;
-  white-space: nowrap;
-  padding-left: 0px;
-  justify-content: flex-end;
-}
-
-.userInfo {
-}
-
-.userInfo a {
-  color: inherit;
-  font-size: 13px;
-}
-.userInfo a .avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 30px;
-  vertical-align: middle;
-  margin-left: 5px;
 }
 </style>
