@@ -5,7 +5,7 @@ import store from '@/store'
 export async function getProfile () {
   let profile = store.state.profile
   if (!utils.isEmptyDict(profile)) {
-    return profile.toJS()
+    return profile
   }
 
   const res = await fetch('/api/user', {
