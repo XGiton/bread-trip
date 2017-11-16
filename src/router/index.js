@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
 import SignIn from '@/components/Login'
+import RoleList from '@/components/role/roleList'
 import { checkAuth } from '../api'
 
 Vue.use(Router)
@@ -18,6 +19,12 @@ const router = new Router({
       path: '/sign-in',
       name: 'signIn',
       component: SignIn
+    },
+    {
+      path: '/roles',
+      name: 'roleManage',
+      component: RoleList,
+      meta: { requiresAuth: true }
     },
     {
       path: '*',

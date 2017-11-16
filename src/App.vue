@@ -125,6 +125,12 @@ export default {
 }
 
 .layout-content {
-  /*min-height: 810px;*/
+  flex: auto;
+  min-height: 810px;
+  padding: 20px;
+  margin: 15px;
+  background-color: #fff;
+  overflow: hidden;
+  display: block;
 }
 </style>

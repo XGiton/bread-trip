@@ -8,14 +8,14 @@
     <div class="sideBarContainer">
       <Row>
         <Col>
-          <Menu theme="dark" width="100%" class="sidebarText">
+          <Menu theme="dark" width="100%" class="sidebarText" @on-select="onSelect">
             <Submenu name="1">
               <template slot="title">
                 <Icon type="home"></Icon>
                 系统管理
               </template>
-              <MenuItem name="1-1" class="sidebarText">用户管理</MenuItem>
-              <MenuItem name="1-2" class="sidebarText">角色管理</MenuItem>
+              <MenuItem name="userManage" class="sidebarText">用户管理</MenuItem>
+              <MenuItem name="roleManage" class="sidebarText">角色管理</MenuItem>
             </Submenu>
             <Submenu name="2">
               <template slot="title">
@@ -37,6 +37,15 @@ export default {
   data () {
     return {
       theme2: 'light'
+    }
+  },
+  methods: {
+    onSelect: function (name) {
+      if (name === 'userManage') {
+        console.log('redirect to user manage page')
+      } else if (name === 'roleManage') {
+        this.$router.push('/roles')
+      }
     }
   }
 }
