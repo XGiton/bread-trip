@@ -11,16 +11,24 @@
     </div>
     <Modal
       v-model="showEditModal"
-      title="修改名称">
-      <!-- @on-ok="ok" -->
-      <!-- @on-cancel="cancel"> -->
+      title="修改名称"
+      @on-ok="editConfirm">
       <div style="padding: 10px 20px 30px 20px">
         <div style="width: 23%; display: inline-block; text-align: right;">
           <span style="">填写新名称：</span>
         </div>
         <div style="width: 65%; display: inline-block">
-          <Input v-model="editGroupName"></Input>
+          <Input v-model="operateGroupName"></Input>
         </div>
+      </div>
+    </Modal>
+    <Modal
+      v-model="showDeleteModal"
+      @on-ok="deleteConfirm">
+      <div style="padding: 10px 20px 30px 20px; vertical-align: middle; line-height: 1.5">
+        <Icon type="help-circled" color="#ffbf00" size="24" style="margin-right: 16px; line-height: 1"></Icon>
+        <span style="font-size: 15px; line-height: 1.5"><strong>你正在删除【{{ operateGroupName }}】权限组</strong></span>
+        <p style="margin-left: 42px; margin-top: 8px;">删除成功之后，该操作将无法恢复，你还要继续吗？</p>
       </div>
     </Modal>
   </div>
@@ -72,8 +80,8 @@ export default {
                 on: {
                   click: () => {
                     this.showEditModal = true
-                    this.editIndex = params.index
-                    this.editGroupName = this.roles[params.index].group_name
+                    this.operateIndex = params.index
+                    this.operateGroupName = this.roles[params.index].group_name
                   }
                 }
               }, '更名'),
@@ -87,7 +95,9 @@ export default {
                 },
                 on: {
                   click: () => {
-                    this.remove(params.index)
+                    this.showDeleteModal = true
+                    this.operateIndex = params.index
+                    this.operateGroupName = this.roles[params.index].group_name
                   }
                 }
               }, '删除')
@@ -100,8 +110,9 @@ export default {
       page: 0,
       size: 10,
       showEditModal: false,
-      editIndex: 0,
-      editGroupName: ''
+      showDeleteModal: false,
+      operateIndex: 0,
+      operateGroupName: ''
     }
   },
 
@@ -110,6 +121,35 @@ export default {
   },
 
   methods: {
+    deleteConfirm: async function () {
+      const url = `/api/group/` + this.roles[this.operateIndex]._id
+      const res = await fetch(url, {
+        method: 'DELETE',
+        credentials: 'same-origin'
+      })
+      const data = await res.json()
+      if (res.status >= 400) {
+        console.log(data.msg)
+      } else {
+        this.getRoleList()
+      }
+    },
+    editConfirm: async function () {
+      const url = `/api/group/` + this.roles[this.operateIndex]._id + `/name`
+      const formData = new FormData()
+      formData.append('group_name', this.operateGroupName)
+      const res = await fetch(url, {
+        method: 'PUT',
+        credentials: 'same-origin',
+        body: formData
+      })
+      const data = await res.json()
+      if (res.status >= 400) {
+        console.log(data.msg)
+      } else {
+        this.getRoleList()
+      }
+    },
     onPageChange: function (page) {
       this.page = page - 1
       this.getRoleList()
