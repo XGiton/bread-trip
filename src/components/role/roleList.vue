@@ -4,8 +4,25 @@
       <Table border :columns="columns" :data="roles"></Table>
     </div>
     <div class="role-page">
-      <Page :total="total" show-sizer></Page>
+      <Page
+        :total="total" show-sizer @on-change="onPageChange"
+        @on-page-size-change="onPageSizeChange">
+      </Page>
     </div>
+    <Modal
+      v-model="showEditModal"
+      title="修改名称">
+      <!-- @on-ok="ok" -->
+      <!-- @on-cancel="cancel"> -->
+      <div style="padding: 10px 20px 30px 20px">
+        <div style="width: 23%; display: inline-block; text-align: right;">
+          <span style="">填写新名称：</span>
+        </div>
+        <div style="width: 65%; display: inline-block">
+          <Input v-model="editGroupName"></Input>
+        </div>
+      </div>
+    </Modal>
   </div>
 </template>
 
@@ -34,7 +51,6 @@ export default {
                   type: 'text'
                 },
                 style: {
-                  // marginRight: '2px',
                   color: '#3da4ff',
                   padding: '6px 2px',
                   transition: 'color .3s ease'
@@ -55,7 +71,9 @@ export default {
                 },
                 on: {
                   click: () => {
-                    this.remove(params.index)
+                    this.showEditModal = true
+                    this.editIndex = params.index
+                    this.editGroupName = this.roles[params.index].group_name
                   }
                 }
               }, '更名'),
@@ -80,7 +98,10 @@ export default {
       roles: [],
       total: 0,
       page: 0,
-      size: 10
+      size: 10,
+      showEditModal: false,
+      editIndex: 0,
+      editGroupName: ''
     }
   },
 
@@ -89,9 +110,17 @@ export default {
   },
 
   methods: {
+    onPageChange: function (page) {
+      this.page = page - 1
+      this.getRoleList()
+    },
+    onPageSizeChange: function (size) {
+      this.size = size
+      this.getRoleList()
+    },
     getRoleList: async function () {
-      const start = this.page * 10
-      const end = this.page * 10 + 10
+      const start = this.page * this.size
+      const end = (this.page + 1) * this.size
       const res = await fetch(`/api/groups?start=` + start + `&end=` + end, {
         method: 'GET',
         credentials: 'same-origin'
