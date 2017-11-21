@@ -1,13 +1,13 @@
 <template>
   <div id="side-bar">
-    <div class="logContainer">
-      <div class="logo">
-        <a href="#">工具箱</a>
-      </div>
-    </div>
     <div class="sideBarContainer">
       <Row>
-        <Col>
+        <Col class="layout-left-menu">
+          <div class="logContainer">
+            <div class="logo">
+              <a href="#">工具箱</a>
+            </div>
+          </div>
           <Menu theme="dark" width="100%" class="sidebarText" @on-select="onSelect">
             <Submenu name="1">
               <template slot="title">

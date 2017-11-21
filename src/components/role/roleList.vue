@@ -1,6 +1,10 @@
 <template>
   <div id="role-list">
+    <!-- <div style="width: 100%; display: inline-block"> -->
+      <Button type="primary" @click="createBtnOnClick" style="margin-right: 20px;">新建角色</Button>
+    <!-- </div> -->
     <div class="role-table">
+      <p class="totalInfo">共 {{ total }} 个角色</p>
       <Table border :columns="columns" :data="roles"></Table>
     </div>
     <div class="role-page">
@@ -12,10 +16,23 @@
     <Modal
       v-model="showEditModal"
       title="修改名称"
-      @on-ok="editConfirm">
+      @on-ok="editNameConfirm">
       <div style="padding: 10px 20px 30px 20px">
         <div style="width: 23%; display: inline-block; text-align: right;">
           <span style="">填写新名称：</span>
+        </div>
+        <div style="width: 65%; display: inline-block">
+          <Input v-model="operateGroupName"></Input>
+        </div>
+      </div>
+    </Modal>
+    <Modal
+      v-model="showCreateModal"
+      title="新建角色"
+      @on-ok="createConfirm">
+      <div style="padding: 10px 20px 30px 20px">
+        <div style="width: 23%; display: inline-block; text-align: right;">
+          <span style="">填写名称：</span>
         </div>
         <div style="width: 65%; display: inline-block">
           <Input v-model="operateGroupName"></Input>
@@ -111,6 +128,7 @@ export default {
       size: 10,
       showEditModal: false,
       showDeleteModal: false,
+      showCreateModal: false,
       operateIndex: 0,
       operateGroupName: ''
     }
@@ -134,7 +152,7 @@ export default {
         this.getRoleList()
       }
     },
-    editConfirm: async function () {
+    editNameConfirm: async function () {
       const url = `/api/group/` + this.roles[this.operateIndex]._id + `/name`
       const formData = new FormData()
       formData.append('group_name', this.operateGroupName)
@@ -149,6 +167,26 @@ export default {
       } else {
         this.getRoleList()
       }
+    },
+    createConfirm: async function () {
+      const url = '/api/group'
+      const formData = new FormData()
+      formData.append('group_name', this.operateGroupName)
+      const res = await fetch(url, {
+        method: 'POST',
+        credentials: 'same-origin',
+        body: formData
+      })
+      const data = await res.json()
+      if (res.status >= 400) {
+        console.log(data.msg)
+      } else {
+        this.getRoleList()
+      }
+    },
+    createBtnOnClick: function () {
+      this.showCreateModal = true
+      this.operateGroupName = ''
     },
     onPageChange: function (page) {
       this.page = page - 1
@@ -181,5 +219,10 @@ export default {
 .role-page {
   margin: 16px 0;
   text-align: right;
+}
+.totalInfo {
+   display: block;
+   font-size: 13px;
+   padding: 20px 0px 10px;
 }
 </style>

@@ -3,7 +3,7 @@
     <!-- <img src="./assets/logo.png"> -->
     <div v-if="isLayoutPath" class="layout">
       <div class="layout-left">
-        <SideBar class="sidebar"></SideBar>
+        <SideBar></SideBar>
       </div>
       <div class="layout-right">
         <HeaderComponents v-bind:user="profile" class="layout-header"></HeaderComponents>
@@ -93,23 +93,22 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
 }
 
 .layout-left {
-  height: 100%;
+  /*height: 100%;*/
   min-width: 210px;
   max-width: 220px;
   overflow: hidden;
-}
-
-.sidebar {
+  /*background: #464c5b;*/
+  background-color: #495060;
 }
 
 .layout {
   display: flex;
   min-height: 875px;
+  flex-direction: row;
 }
 
 .layout-right {
